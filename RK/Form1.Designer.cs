@@ -195,6 +195,7 @@
             this.RangeToTextBox.Name = "RangeToTextBox";
             this.RangeToTextBox.Size = new System.Drawing.Size(70, 20);
             this.RangeToTextBox.TabIndex = 6;
+            this.RangeToTextBox.TextChanged += new System.EventHandler(this.RangeToTextBox_TextChanged);
             // 
             // StepSizeLabel
             // 
@@ -211,6 +212,7 @@
             this.StepSizeTextBox.Name = "StepSizeTextBox";
             this.StepSizeTextBox.Size = new System.Drawing.Size(70, 20);
             this.StepSizeTextBox.TabIndex = 8;
+            this.StepSizeTextBox.TextChanged += new System.EventHandler(this.StepSizeTextBox_TextChanged);
             // 
             // InitialConditionLabel
             // 
@@ -227,6 +229,7 @@
             this.InitialConditionTextBox.Name = "InitialConditionTextBox";
             this.InitialConditionTextBox.Size = new System.Drawing.Size(70, 20);
             this.InitialConditionTextBox.TabIndex = 10;
+            this.InitialConditionTextBox.TextChanged += new System.EventHandler(this.InitialConditionTextBox_TextChanged);
             // 
             // AssignedValuesLabel
             // 
@@ -260,6 +263,7 @@
             this.ResistanceTextBox.Name = "ResistanceTextBox";
             this.ResistanceTextBox.Size = new System.Drawing.Size(70, 20);
             this.ResistanceTextBox.TabIndex = 14;
+            this.ResistanceTextBox.TextChanged += new System.EventHandler(this.ResistanceTextBox_TextChanged);
             // 
             // CapacityLabel
             // 
@@ -276,6 +280,7 @@
             this.CapacityTextBox.Name = "CapacityTextBox";
             this.CapacityTextBox.Size = new System.Drawing.Size(70, 20);
             this.CapacityTextBox.TabIndex = 16;
+            this.CapacityTextBox.TextChanged += new System.EventHandler(this.CapacityTextBox_TextChanged);
             // 
             // VoltageLabel
             // 
@@ -292,6 +297,7 @@
             this.VoltageTextBox.Name = "VoltageTextBox";
             this.VoltageTextBox.Size = new System.Drawing.Size(70, 20);
             this.VoltageTextBox.TabIndex = 18;
+            this.VoltageTextBox.TextChanged += new System.EventHandler(this.VoltageTextBox_TextChanged);
             // 
             // TableForButtons
             // 
