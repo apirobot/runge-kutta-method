@@ -10,12 +10,12 @@ using System.Windows.Forms;
 
 namespace RK
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         // Объявление переменных, хранящих исходные данные.
         private double rangeFrom;
         private double rangeTo;
-        private double stepSize;
+        private int stepNumber;
         private double initialCondition;
         private double resistance;
         private double capacity;
@@ -43,14 +43,14 @@ namespace RK
             }
         }
 
-        public double StepSize
+        public int StepNumber
         {
-            get { return stepSize; }
+            get { return stepNumber; }
             private set
             {
-                if (value <= 0 || value > RangeTo)
-                    throw new Exception("Величина шага должна быть больше 0 и не больше значения конца интервала");
-                stepSize = value;
+                if (value <= 0 || value > 100000)
+                    throw new Exception("Количество разбиений должно быть больше 0 и не больше 100000");
+                stepNumber = value;
             }
         }
 
@@ -96,13 +96,13 @@ namespace RK
         // Проверка на правильность ввода исходных данных.
         public bool RangeFromChecked { get; private set; } = false;
         public bool RangeToChecked { get; private set; } = false;
-        public bool StepSizeChecked { get; private set; } = false;
+        public bool StepNumberChecked { get; private set; } = false;
         public bool InitialConditionChecked { get; private set; } = false;
         public bool ResistanceChecked { get; private set; } = false;
         public bool CapacityChecked { get; private set; } = false;
         public bool VoltageChecked { get; private set; } = false;
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
         }
@@ -120,9 +120,9 @@ namespace RK
             RangeToTextBox.Text = RangeTo.ToString();
             RangeToChecked = true;
 
-            StepSize = 0.001;
-            StepSizeTextBox.Text = StepSize.ToString();
-            StepSizeChecked = true;
+            StepNumber = 100;
+            StepNumberTextBox.Text = StepNumber.ToString();
+            StepNumberChecked = true;
 
             InitialCondition = 0;
             InitialConditionTextBox.Text = InitialCondition.ToString();
@@ -143,7 +143,7 @@ namespace RK
 
         private void CalculateButton_Click(object sender, EventArgs e)
         {
-            if (!RangeFromChecked || !RangeToChecked || !StepSizeChecked || !InitialConditionChecked ||
+            if (!RangeFromChecked || !RangeToChecked || !StepNumberChecked || !InitialConditionChecked ||
                 !ResistanceChecked || !CapacityChecked || !VoltageChecked)
             {
                 MessageBox.Show("Проверьте правильность ввода исходных данных", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -216,27 +216,27 @@ namespace RK
         }
 
         /// <summary>
-        /// Проверяет значение в StepSizeTextBox. Если нужно, указывает на наличие ошибки.
+        /// Проверяет значение в StepNumberTextBox. Если нужно, указывает на наличие ошибки.
         /// </summary>
-        private void StepSizeTextBox_TextChanged(object sender, EventArgs e)
+        private void StepNumberTextBox_TextChanged(object sender, EventArgs e)
         {
-            ErrorProviderStepSize.SetIconPadding(StepSizeTextBox, -20);
+            ErrorProviderStepNumber.SetIconPadding(StepNumberTextBox, -20);
 
             try
             {
-                StepSize = double.Parse(StepSizeTextBox.Text);
+                StepNumber = int.Parse(StepNumberTextBox.Text);
 
-                ErrorProviderStepSize.Clear();
-                StepSizeChecked = true;
+                ErrorProviderStepNumber.Clear();
+                StepNumberChecked = true;
             }
             catch (Exception ex)
             {
-                if (ex.Message == "Величина шага должна быть больше 0 и не больше значения конца интервала")
-                    ErrorProviderStepSize.SetError(StepSizeTextBox, ex.Message);
+                if (ex.Message == "Количество разбиений должно быть больше 0 и не больше 100000")
+                    ErrorProviderStepNumber.SetError(StepNumberTextBox, ex.Message);
                 else
-                    ErrorProviderStepSize.SetError(StepSizeTextBox, "Ошибка ввода");
+                    ErrorProviderStepNumber.SetError(StepNumberTextBox, "Ошибка ввода");
 
-                StepSizeChecked = false;
+                StepNumberChecked = false;
             }
         }
 

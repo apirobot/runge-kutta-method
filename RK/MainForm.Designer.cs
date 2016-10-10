@@ -1,6 +1,6 @@
 ﻿namespace RK
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.MenuTool = new System.Windows.Forms.MenuStrip();
             this.FileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,8 +45,8 @@
             this.RangeFromTextBox = new System.Windows.Forms.TextBox();
             this.RangeToLabel = new System.Windows.Forms.Label();
             this.RangeToTextBox = new System.Windows.Forms.TextBox();
-            this.StepSizeLabel = new System.Windows.Forms.Label();
-            this.StepSizeTextBox = new System.Windows.Forms.TextBox();
+            this.StepNumberLabel = new System.Windows.Forms.Label();
+            this.StepNumberTextBox = new System.Windows.Forms.TextBox();
             this.InitialConditionLabel = new System.Windows.Forms.Label();
             this.InitialConditionTextBox = new System.Windows.Forms.TextBox();
             this.AssignedValuesLabel = new System.Windows.Forms.Label();
@@ -62,7 +62,7 @@
             this.DefaultValues = new System.Windows.Forms.Button();
             this.ErrorProviderRangeFrom = new System.Windows.Forms.ErrorProvider(this.components);
             this.ErrorProviderRangeTo = new System.Windows.Forms.ErrorProvider(this.components);
-            this.ErrorProviderStepSize = new System.Windows.Forms.ErrorProvider(this.components);
+            this.ErrorProviderStepNumber = new System.Windows.Forms.ErrorProvider(this.components);
             this.ErrorProviderInitialCondition = new System.Windows.Forms.ErrorProvider(this.components);
             this.ErrorProviderResistance = new System.Windows.Forms.ErrorProvider(this.components);
             this.ErrorProviderCapacity = new System.Windows.Forms.ErrorProvider(this.components);
@@ -71,7 +71,7 @@
             this.TableForButtons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderRangeFrom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderRangeTo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderStepSize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderStepNumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderInitialCondition)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderResistance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderCapacity)).BeginInit();
@@ -197,22 +197,22 @@
             this.RangeToTextBox.TabIndex = 6;
             this.RangeToTextBox.TextChanged += new System.EventHandler(this.RangeToTextBox_TextChanged);
             // 
-            // StepSizeLabel
+            // StepNumberLabel
             // 
-            this.StepSizeLabel.AutoSize = true;
-            this.StepSizeLabel.Location = new System.Drawing.Point(12, 110);
-            this.StepSizeLabel.Name = "StepSizeLabel";
-            this.StepSizeLabel.Size = new System.Drawing.Size(83, 13);
-            this.StepSizeLabel.TabIndex = 7;
-            this.StepSizeLabel.Text = "Величина шага";
+            this.StepNumberLabel.AutoSize = true;
+            this.StepNumberLabel.Location = new System.Drawing.Point(12, 110);
+            this.StepNumberLabel.Name = "StepNumberLabel";
+            this.StepNumberLabel.Size = new System.Drawing.Size(123, 13);
+            this.StepNumberLabel.TabIndex = 7;
+            this.StepNumberLabel.Text = "Количество разбиений";
             // 
-            // StepSizeTextBox
+            // StepNumberTextBox
             // 
-            this.StepSizeTextBox.Location = new System.Drawing.Point(170, 108);
-            this.StepSizeTextBox.Name = "StepSizeTextBox";
-            this.StepSizeTextBox.Size = new System.Drawing.Size(70, 20);
-            this.StepSizeTextBox.TabIndex = 8;
-            this.StepSizeTextBox.TextChanged += new System.EventHandler(this.StepSizeTextBox_TextChanged);
+            this.StepNumberTextBox.Location = new System.Drawing.Point(170, 108);
+            this.StepNumberTextBox.Name = "StepNumberTextBox";
+            this.StepNumberTextBox.Size = new System.Drawing.Size(70, 20);
+            this.StepNumberTextBox.TabIndex = 8;
+            this.StepNumberTextBox.TextChanged += new System.EventHandler(this.StepNumberTextBox_TextChanged);
             // 
             // InitialConditionLabel
             // 
@@ -349,11 +349,11 @@
             this.ErrorProviderRangeTo.ContainerControl = this;
             this.ErrorProviderRangeTo.Icon = ((System.Drawing.Icon)(resources.GetObject("ErrorProviderRangeTo.Icon")));
             // 
-            // ErrorProviderStepSize
+            // ErrorProviderStepNumber
             // 
-            this.ErrorProviderStepSize.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
-            this.ErrorProviderStepSize.ContainerControl = this;
-            this.ErrorProviderStepSize.Icon = ((System.Drawing.Icon)(resources.GetObject("ErrorProviderStepSize.Icon")));
+            this.ErrorProviderStepNumber.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.ErrorProviderStepNumber.ContainerControl = this;
+            this.ErrorProviderStepNumber.Icon = ((System.Drawing.Icon)(resources.GetObject("ErrorProviderStepNumber.Icon")));
             // 
             // ErrorProviderInitialCondition
             // 
@@ -379,7 +379,7 @@
             this.ErrorProviderVoltage.ContainerControl = this;
             this.ErrorProviderVoltage.Icon = ((System.Drawing.Icon)(resources.GetObject("ErrorProviderVoltage.Icon")));
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -395,8 +395,8 @@
             this.Controls.Add(this.AssignedValuesLabel);
             this.Controls.Add(this.InitialConditionTextBox);
             this.Controls.Add(this.InitialConditionLabel);
-            this.Controls.Add(this.StepSizeTextBox);
-            this.Controls.Add(this.StepSizeLabel);
+            this.Controls.Add(this.StepNumberTextBox);
+            this.Controls.Add(this.StepNumberLabel);
             this.Controls.Add(this.RangeToTextBox);
             this.Controls.Add(this.RangeToLabel);
             this.Controls.Add(this.RangeFromTextBox);
@@ -407,14 +407,14 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.MenuTool;
             this.MaximizeBox = false;
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Расчет уравнения методом Рунге-Кутта";
             this.MenuTool.ResumeLayout(false);
             this.MenuTool.PerformLayout();
             this.TableForButtons.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderRangeFrom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderRangeTo)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderStepSize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderStepNumber)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderInitialCondition)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderResistance)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderCapacity)).EndInit();
@@ -441,8 +441,8 @@
         private System.Windows.Forms.TextBox RangeFromTextBox;
         private System.Windows.Forms.Label RangeToLabel;
         private System.Windows.Forms.TextBox RangeToTextBox;
-        private System.Windows.Forms.Label StepSizeLabel;
-        private System.Windows.Forms.TextBox StepSizeTextBox;
+        private System.Windows.Forms.Label StepNumberLabel;
+        private System.Windows.Forms.TextBox StepNumberTextBox;
         private System.Windows.Forms.Label InitialConditionLabel;
         private System.Windows.Forms.TextBox InitialConditionTextBox;
         private System.Windows.Forms.Label AssignedValuesLabel;
@@ -458,7 +458,7 @@
         private System.Windows.Forms.Button DefaultValues;
         private System.Windows.Forms.ErrorProvider ErrorProviderRangeFrom;
         private System.Windows.Forms.ErrorProvider ErrorProviderRangeTo;
-        private System.Windows.Forms.ErrorProvider ErrorProviderStepSize;
+        private System.Windows.Forms.ErrorProvider ErrorProviderStepNumber;
         private System.Windows.Forms.ErrorProvider ErrorProviderInitialCondition;
         private System.Windows.Forms.ErrorProvider ErrorProviderResistance;
         private System.Windows.Forms.ErrorProvider ErrorProviderCapacity;
