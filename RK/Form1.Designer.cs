@@ -324,6 +324,7 @@
             this.CalculateButton.TabIndex = 0;
             this.CalculateButton.Text = "Вычислить";
             this.CalculateButton.UseVisualStyleBackColor = true;
+            this.CalculateButton.Click += new System.EventHandler(this.CalculateButton_Click);
             // 
             // DefaultValues
             // 

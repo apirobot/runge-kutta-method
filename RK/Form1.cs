@@ -12,7 +12,88 @@ namespace RK
 {
     public partial class Form1 : Form
     {
-        // Проверка на правильность ввода исходных данных
+        // Объявление переменных, хранящих исходные данные.
+        private double rangeFrom;
+        private double rangeTo;
+        private double stepSize;
+        private double initialCondition;
+        private double resistance;
+        private double capacity;
+        private double voltage;
+
+        public double RangeFrom
+        {
+            get { return rangeFrom; }
+            private set
+            {
+                if (value < 0)
+                    throw new Exception("Значение должно быть не меньше 0");
+                rangeFrom = value;
+            }
+        }
+
+        public double RangeTo
+        {
+            get { return rangeTo; }
+            private set
+            {
+                if (value <= 0)
+                    throw new Exception("Значение должно быть больше 0");
+                rangeTo = value;
+            }
+        }
+
+        public double StepSize
+        {
+            get { return stepSize; }
+            private set
+            {
+                if (value <= 0 || value > RangeTo)
+                    throw new Exception("Величина шага должна быть больше 0 и не больше значения конца интервала");
+                stepSize = value;
+            }
+        }
+
+        public double InitialCondition
+        {
+            get { return initialCondition; }
+            private set { initialCondition = value; }
+        }
+
+        public double Resistance
+        {
+            get { return resistance; }
+            private set
+            {
+                if (value <= 0)
+                    throw new Exception("Значение должно быть больше 0");
+                resistance = value;
+            }
+        }
+
+        public double Capacity
+        {
+            get { return capacity; }
+            private set
+            {
+                if (value <= 0)
+                    throw new Exception("Значение должно быть больше 0");
+                capacity = value;
+            }
+        }
+
+        public double Voltage
+        {
+            get { return voltage; }
+            private set
+            {
+                if (value < 0)
+                    throw new Exception("Значение должно быть не меньше 0");
+                voltage = value;
+            }
+        }
+
+        // Проверка на правильность ввода исходных данных.
         public bool RangeFromChecked { get; private set; } = false;
         public bool RangeToChecked { get; private set; } = false;
         public bool StepSizeChecked { get; private set; } = false;
@@ -31,26 +112,45 @@ namespace RK
         /// </summary>
         private void DefaultValues_Click(object sender, EventArgs e)
         {
-            RangeFromTextBox.Text = 0.ToString();
+            RangeFrom = 0;
+            RangeFromTextBox.Text = RangeFrom.ToString();
             RangeFromChecked = true;
 
-            RangeToTextBox.Text = 0.05.ToString();
+            RangeTo = 0.05;
+            RangeToTextBox.Text = RangeTo.ToString();
             RangeToChecked = true;
 
-            StepSizeTextBox.Text = 0.001.ToString();
+            StepSize = 0.001;
+            StepSizeTextBox.Text = StepSize.ToString();
             StepSizeChecked = true;
 
-            InitialConditionTextBox.Text = 0.ToString();
+            InitialCondition = 0;
+            InitialConditionTextBox.Text = InitialCondition.ToString();
             InitialConditionChecked = true;
 
-            ResistanceTextBox.Text = 1000.ToString();
+            Resistance = 1000;
+            ResistanceTextBox.Text = Resistance.ToString();
             ResistanceChecked = true;
 
-            CapacityTextBox.Text = Math.Pow(10, -5).ToString();
+            Capacity = Math.Pow(10, -5);
+            CapacityTextBox.Text = Capacity.ToString();
             CapacityChecked = true;
 
-            VoltageTextBox.Text = 10.ToString();
+            Voltage = 10;
+            VoltageTextBox.Text = Voltage.ToString();
             VoltageChecked = true;
+        }
+
+        private void CalculateButton_Click(object sender, EventArgs e)
+        {
+            if (!RangeFromChecked || !RangeToChecked || !StepSizeChecked || !InitialConditionChecked ||
+                !ResistanceChecked || !CapacityChecked || !VoltageChecked)
+            {
+                MessageBox.Show("Проверьте правильность ввода исходных данных", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+
         }
 
         /// <summary>
@@ -62,15 +162,14 @@ namespace RK
 
             try
             {
-                double rangeFrom = double.Parse(RangeFromTextBox.Text);
-                double rangeTo;
-                if (rangeFrom < 0)
-                    throw new Exception("Значение должно быть не меньше 0");
+                RangeFrom = double.Parse(RangeFromTextBox.Text);
+
                 if (double.TryParse(RangeToTextBox.Text, out rangeTo))
-                    if (rangeTo - rangeFrom <= 0)
+                    if (RangeTo - RangeFrom <= 0)
                         throw new Exception("Разность между конечным и начальным значениями интервала должна быть больше 0");
 
                 ErrorProviderRangeFrom.Clear();
+                ErrorProviderRangeTo.Clear();
                 RangeFromChecked = true;
             }
             catch (Exception ex)
@@ -94,14 +193,13 @@ namespace RK
 
             try
             {
-                double rangeFrom;
-                double rangeTo = double.Parse(RangeToTextBox.Text);
-                if (rangeTo <= 0)
-                    throw new Exception("Значение должно быть больше 0");
+                RangeTo = double.Parse(RangeToTextBox.Text);
+
                 if (double.TryParse(RangeFromTextBox.Text, out rangeFrom))
-                    if (rangeTo - rangeFrom <= 0)
+                    if (RangeTo - RangeFrom <= 0)
                         throw new Exception("Разность между конечным и начальным значениями интервала должна быть больше 0");
 
+                ErrorProviderRangeFrom.Clear();
                 ErrorProviderRangeTo.Clear();
                 RangeToChecked = true;
             }
@@ -126,10 +224,7 @@ namespace RK
 
             try
             {
-                double stepSize = double.Parse(StepSizeTextBox.Text);
-                double rangeTo = double.Parse(RangeToTextBox.Text);
-                if (stepSize <= 0 || stepSize > rangeTo)
-                    throw new Exception("Величина шага должна быть больше 0 и не больше значения конца интервала");
+                StepSize = double.Parse(StepSizeTextBox.Text);
 
                 ErrorProviderStepSize.Clear();
                 StepSizeChecked = true;
@@ -154,7 +249,7 @@ namespace RK
 
             try
             {
-                double initialCondition = double.Parse(InitialConditionTextBox.Text);
+                InitialCondition = double.Parse(InitialConditionTextBox.Text);
 
                 ErrorProviderInitialCondition.Clear();
                 InitialConditionChecked = true;
@@ -176,9 +271,7 @@ namespace RK
 
             try
             {
-                double resistance = double.Parse(ResistanceTextBox.Text);
-                if (resistance <= 0)
-                    throw new Exception("Значение должно быть больше 0");
+                Resistance = double.Parse(ResistanceTextBox.Text);
 
                 ErrorProviderResistance.Clear();
                 ResistanceChecked = true;
@@ -203,9 +296,7 @@ namespace RK
 
             try
             {
-                double capacity = double.Parse(CapacityTextBox.Text);
-                if (capacity <= 0)
-                    throw new Exception("Значение должно быть больше 0");
+                Capacity = double.Parse(CapacityTextBox.Text);
 
                 ErrorProviderCapacity.Clear();
                 CapacityChecked = true;
@@ -230,9 +321,7 @@ namespace RK
 
             try
             {
-                double voltage = double.Parse(VoltageTextBox.Text);
-                if (voltage < 0)
-                    throw new Exception("Значение должно быть не меньше 0");
+                Voltage = double.Parse(VoltageTextBox.Text);
 
                 ErrorProviderVoltage.Clear();
                 VoltageChecked = true;
