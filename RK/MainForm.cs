@@ -48,8 +48,8 @@ namespace RK
             get { return stepNumber; }
             private set
             {
-                if (value <= 0 || value > 100000)
-                    throw new Exception("Количество разбиений должно быть больше 0 и не больше 100000");
+                if (value <= 0 || value > 10000)
+                    throw new Exception("Количество разбиений должно быть больше 0 и не больше 10000");
                 stepNumber = value;
             }
         }
@@ -141,33 +141,6 @@ namespace RK
             VoltageChecked = true;
         }
 
-        private void CalculateButton_Click(object sender, EventArgs e)
-        {
-            if (!RangeFromChecked || !RangeToChecked || !StepNumberChecked || !InitialConditionChecked ||
-                !ResistanceChecked || !CapacityChecked || !VoltageChecked)
-            {
-                MessageBox.Show("Проверьте правильность введенных данных", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                ResultsMenuItem.Enabled = false;
-                return;
-            }
-
-            try
-            {
-                RK4 equation = new RK4(RangeFrom, RangeTo, StepNumber, InitialCondition, Resistance, Capacity, Voltage);
-                equation.Solve();
-            }
-            catch
-            {
-                MessageBox.Show("Во время вычислений возникла ошибка. Проверьте правильность введенных данных", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                ResultsMenuItem.Enabled = false;
-                return;
-            }
-
-
-            MessageBox.Show("Вычисления выполнены успешно. Таблица результатов и график находятся в меню \"Результаты\"", "Вычисления выполнены", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            ResultsMenuItem.Enabled = true;
-        }
-
         /// <summary>
         /// Проверяет значение в RangeFromTextBox. Если нужно, указывает на наличие ошибки.
         /// </summary>
@@ -246,7 +219,7 @@ namespace RK
             }
             catch (Exception ex)
             {
-                if (ex.Message == "Количество разбиений должно быть больше 0 и не больше 100000")
+                if (ex.Message == "Количество разбиений должно быть больше 0 и не больше 10000")
                     ErrorProviderStepNumber.SetError(StepNumberTextBox, ex.Message);
                 else
                     ErrorProviderStepNumber.SetError(StepNumberTextBox, "Ошибка ввода");
@@ -350,6 +323,54 @@ namespace RK
 
                 VoltageChecked = false;
             }
+        }
+
+        /// <summary>
+        /// Кнопка вычислить. Вычисляются значения по методу Рунге-Кутта и заносятся в класс Data.
+        /// Если возникает ошибка, то показывается соответствующий MessageBox.
+        /// </summary>
+        private void CalculateButton_Click(object sender, EventArgs e)
+        {
+            if (!RangeFromChecked || !RangeToChecked || !StepNumberChecked || !InitialConditionChecked ||
+                !ResistanceChecked || !CapacityChecked || !VoltageChecked)
+            {
+                MessageBox.Show("Проверьте правильность введенных данных", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ResultsMenuItem.Enabled = false;
+                return;
+            }
+
+            try
+            {
+                RK4 equation = new RK4(RangeFrom, RangeTo, StepNumber, InitialCondition, Resistance, Capacity, Voltage);
+                equation.Solve();
+            }
+            catch
+            {
+                MessageBox.Show("Во время вычислений возникла ошибка. Проверьте правильность введенных данных", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ResultsMenuItem.Enabled = false;
+                return;
+            }
+
+            MessageBox.Show("Вычисления выполнены успешно. Таблица результатов и график находятся в меню \"Результаты\"", "Вычисления выполнены", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            ResultsMenuItem.Enabled = true;
+        }
+
+        /// <summary>
+        /// Таблица результатов.
+        /// </summary>
+        private void TableMenuItem_Click(object sender, EventArgs e)
+        {
+            TableForm table = new TableForm();
+            table.Show();
+        }
+
+        /// <summary>
+        /// График результатов.
+        /// </summary>
+        private void ChartMenuItem_Click(object sender, EventArgs e)
+        {
+            ChartForm chart = new ChartForm();
+            chart.Show();
         }
     }
 }

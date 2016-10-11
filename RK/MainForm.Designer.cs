@@ -125,14 +125,16 @@
             // TableMenuItem
             // 
             this.TableMenuItem.Name = "TableMenuItem";
-            this.TableMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.TableMenuItem.Size = new System.Drawing.Size(152, 22);
             this.TableMenuItem.Text = "Таблица";
+            this.TableMenuItem.Click += new System.EventHandler(this.TableMenuItem_Click);
             // 
             // ChartMenuItem
             // 
             this.ChartMenuItem.Name = "ChartMenuItem";
-            this.ChartMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.ChartMenuItem.Size = new System.Drawing.Size(152, 22);
             this.ChartMenuItem.Text = "График";
+            this.ChartMenuItem.Click += new System.EventHandler(this.ChartMenuItem_Click);
             // 
             // HelpMenuItem
             // 
@@ -408,7 +410,7 @@
             this.MainMenuStrip = this.MenuTool;
             this.MaximizeBox = false;
             this.Name = "MainForm";
-            this.Text = "Расчет уравнения методом Рунге-Кутта";
+            this.Text = "Ввод исходных данных";
             this.MenuTool.ResumeLayout(false);
             this.MenuTool.PerformLayout();
             this.TableForButtons.ResumeLayout(false);
