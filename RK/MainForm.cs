@@ -146,11 +146,26 @@ namespace RK
             if (!RangeFromChecked || !RangeToChecked || !StepNumberChecked || !InitialConditionChecked ||
                 !ResistanceChecked || !CapacityChecked || !VoltageChecked)
             {
-                MessageBox.Show("Проверьте правильность ввода исходных данных", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Проверьте правильность введенных данных", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ResultsMenuItem.Enabled = false;
+                return;
+            }
+
+            try
+            {
+                RK4 equation = new RK4(RangeFrom, RangeTo, StepNumber, InitialCondition, Resistance, Capacity, Voltage);
+                equation.Solve();
+            }
+            catch
+            {
+                MessageBox.Show("Во время вычислений возникла ошибка. Проверьте правильность введенных данных", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ResultsMenuItem.Enabled = false;
                 return;
             }
 
 
+            MessageBox.Show("Вычисления выполнены успешно. Таблица результатов и график находятся в меню \"Результаты\"", "Вычисления выполнены", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            ResultsMenuItem.Enabled = true;
         }
 
         /// <summary>
