@@ -33,7 +33,7 @@
             this.MenuTool = new System.Windows.Forms.MenuStrip();
             this.FileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.SaveMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SaveAsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ResultsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TableMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ChartMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,6 +67,8 @@
             this.ErrorProviderResistance = new System.Windows.Forms.ErrorProvider(this.components);
             this.ErrorProviderCapacity = new System.Windows.Forms.ErrorProvider(this.components);
             this.ErrorProviderVoltage = new System.Windows.Forms.ErrorProvider(this.components);
+            this.OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.SaveAsFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.MenuTool.SuspendLayout();
             this.TableForButtons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderRangeFrom)).BeginInit();
@@ -95,7 +97,7 @@
             // 
             this.FileMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.OpenMenuItem,
-            this.SaveMenuItem});
+            this.SaveAsMenuItem});
             this.FileMenuItem.Name = "FileMenuItem";
             this.FileMenuItem.Size = new System.Drawing.Size(48, 20);
             this.FileMenuItem.Text = "Файл";
@@ -103,14 +105,16 @@
             // OpenMenuItem
             // 
             this.OpenMenuItem.Name = "OpenMenuItem";
-            this.OpenMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.OpenMenuItem.Size = new System.Drawing.Size(153, 22);
             this.OpenMenuItem.Text = "Открыть";
+            this.OpenMenuItem.Click += new System.EventHandler(this.OpenMenuItem_Click);
             // 
-            // SaveMenuItem
+            // SaveAsMenuItem
             // 
-            this.SaveMenuItem.Name = "SaveMenuItem";
-            this.SaveMenuItem.Size = new System.Drawing.Size(132, 22);
-            this.SaveMenuItem.Text = "Сохранить";
+            this.SaveAsMenuItem.Name = "SaveAsMenuItem";
+            this.SaveAsMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.SaveAsMenuItem.Text = "Сохранить как";
+            this.SaveAsMenuItem.Click += new System.EventHandler(this.SaveAsMenuItem_Click);
             // 
             // ResultsMenuItem
             // 
@@ -238,9 +242,9 @@
             this.AssignedValuesLabel.AutoSize = true;
             this.AssignedValuesLabel.Location = new System.Drawing.Point(12, 200);
             this.AssignedValuesLabel.Name = "AssignedValuesLabel";
-            this.AssignedValuesLabel.Size = new System.Drawing.Size(164, 13);
+            this.AssignedValuesLabel.Size = new System.Drawing.Size(111, 13);
             this.AssignedValuesLabel.TabIndex = 11;
-            this.AssignedValuesLabel.Text = "Исходные значения уравнения";
+            this.AssignedValuesLabel.Text = "Значения уравнения";
             // 
             // Line2
             // 
@@ -381,6 +385,15 @@
             this.ErrorProviderVoltage.ContainerControl = this;
             this.ErrorProviderVoltage.Icon = ((System.Drawing.Icon)(resources.GetObject("ErrorProviderVoltage.Icon")));
             // 
+            // OpenFileDialog
+            // 
+            this.OpenFileDialog.FileName = "openFileDialog1";
+            this.OpenFileDialog.Title = "Открыть";
+            // 
+            // SaveAsFileDialog
+            // 
+            this.SaveAsFileDialog.Title = "Сохранить как";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -431,7 +444,7 @@
         private System.Windows.Forms.MenuStrip MenuTool;
         private System.Windows.Forms.ToolStripMenuItem FileMenuItem;
         private System.Windows.Forms.ToolStripMenuItem OpenMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem SaveMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SaveAsMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ResultsMenuItem;
         private System.Windows.Forms.ToolStripMenuItem HelpMenuItem;
         private System.Windows.Forms.ToolStripMenuItem AboutMenuItem;
@@ -465,6 +478,8 @@
         private System.Windows.Forms.ErrorProvider ErrorProviderResistance;
         private System.Windows.Forms.ErrorProvider ErrorProviderCapacity;
         private System.Windows.Forms.ErrorProvider ErrorProviderVoltage;
+        private System.Windows.Forms.OpenFileDialog OpenFileDialog;
+        private System.Windows.Forms.SaveFileDialog SaveAsFileDialog;
     }
 }
 

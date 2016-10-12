@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using System.Text.RegularExpressions;
 
 namespace RK
 {
@@ -371,6 +373,119 @@ namespace RK
         {
             ChartForm chart = new ChartForm();
             chart.Show();
+        }
+
+        /// <summary>
+        /// Сохраняет исходные данные и результаты (если они имеются) в файл.
+        /// </summary>
+        private void SaveAsMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveAsFileDialog.Filter = "Текстовый файл|*.txt";
+
+            if (SaveAsFileDialog.ShowDialog() == DialogResult.Cancel)
+                return;
+
+            string filename = SaveAsFileDialog.FileName;
+
+            try
+            {
+                using (StreamWriter sw = new StreamWriter(filename, false, Encoding.Default))
+                {
+                    sw.WriteLine("Интервал от {0} до {1}", RangeFrom, RangeTo);
+                    sw.WriteLine("Количество разбиений: {0}", StepNumber);
+                    sw.WriteLine("Начальное условие: {0}", InitialCondition);
+
+                    sw.WriteLine();
+
+                    sw.WriteLine("Сопротивление резистора: {0}", Resistance);
+                    sw.WriteLine("Ёмкость: {0}", Capacity.ToString());
+                    sw.WriteLine("Напряжение: {0}", Voltage);
+
+                    sw.WriteLine();
+
+                    if (Data.t != null && Data.q != null)
+                    {
+                        string tText, qText;
+                        for (int i = 0; i < Data.t.Length; i++)
+                        {
+                            tText = string.Format("t[{0}] = {1:f8}", i, Data.t[i]);
+                            qText = string.Format("q[{0}] = {1}", i, Data.q[i]);
+
+                            sw.WriteLine(string.Format("{0,-30} {1,-30}", tText, qText));
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка при сохранении данных", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Читает исходные данные и вычисленные результаты (если они имеются) из файла.
+        /// </summary>
+        private void OpenMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog.Filter = "Текстовый файл|*.txt";
+
+            if (OpenFileDialog.ShowDialog() == DialogResult.Cancel)
+                return;
+
+            string filename = OpenFileDialog.FileName;
+
+            try
+            {
+                using (StreamReader sr = new StreamReader(filename, Encoding.Default))
+                {
+                    string text = sr.ReadToEnd();
+
+                    /* [0-9]*\,?[0-9]*([eE][-+]?[0-9]+)? получает целые, нецелые числа и 
+                     * числа, представленные в научном формате
+                     * Примеры: 1; 25; 0,2552; 9,5134E-06
+                     */
+
+                    RangeFromTextBox.Text = Regex.Match(text, @"Интервал от ([0-9]*\,?[0-9]*([eE][-+]?[0-9]+)?)").Groups[1].ToString();
+                    RangeToTextBox.Text = Regex.Match(text, @"до ([0-9]*\,?[0-9]*([eE][-+]?[0-9]+)?)").Groups[1].ToString();
+                    StepNumberTextBox.Text = Regex.Match(text, @"Количество разбиений: ([0-9]+)").Groups[1].ToString();
+                    InitialConditionTextBox.Text = Regex.Match(text, @"Начальное условие: ([0-9]*\,?[0-9]*([eE][-+]?[0-9]+)?)").Groups[1].ToString();
+                    ResistanceTextBox.Text = Regex.Match(text, @"Сопротивление резистора: ([0-9]*\,?[0-9]*([eE][-+]?[0-9]+)?)").Groups[1].ToString();
+                    CapacityTextBox.Text = Regex.Match(text, @"Ёмкость: ([0-9]*\,?[0-9]*([eE][-+]?[0-9]+)?)").Groups[1].ToString();
+                    VoltageTextBox.Text = Regex.Match(text, @"Напряжение: ([0-9]*\,?[0-9]*([eE][-+]?[0-9]+)?)").Groups[1].ToString();
+
+                    MatchCollection tMatches = Regex.Matches(text, @"t\[([0-9]+)\] = ([0-9]*\,?[0-9]*([eE][-+]?[0-9]+)?)");
+                    MatchCollection qMatches = Regex.Matches(text, @"q\[([0-9]+)\] = ([0-9]*\,?[0-9]*([eE][-+]?[0-9]+)?)");
+
+                    if (tMatches.Count != qMatches.Count)
+                        throw new Exception();
+                    if (tMatches.Count == 0 || qMatches.Count == 0)
+                        return;
+
+                    int elements = tMatches.Count;
+
+                    Data.t = new double[elements];
+                    foreach (Match match in tMatches) 
+                    {
+                        int index = int.Parse(match.Groups[1].ToString());
+                        double value = double.Parse(match.Groups[2].ToString());
+                        Data.t[index] = value;
+                    }
+
+                    Data.q = new double[elements];
+                    foreach (Match match in qMatches)
+                    {
+                        int index = int.Parse(match.Groups[1].ToString());
+                        double value = double.Parse(match.Groups[2].ToString());
+                        Data.q[index] = value;
+                    }
+                }
+
+                ResultsMenuItem.Enabled = true;
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка при чтении данных", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

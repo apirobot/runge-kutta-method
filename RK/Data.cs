@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace RK
 {
     /// <summary>
-    /// Хранит массивы с множеством значений заряда и времени
+    /// Хранит массивы с множеством значений заряда и времени.
     /// </summary>
     static class Data
     {
