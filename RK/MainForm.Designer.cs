@@ -129,14 +129,14 @@
             // TableMenuItem
             // 
             this.TableMenuItem.Name = "TableMenuItem";
-            this.TableMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.TableMenuItem.Size = new System.Drawing.Size(121, 22);
             this.TableMenuItem.Text = "Таблица";
             this.TableMenuItem.Click += new System.EventHandler(this.TableMenuItem_Click);
             // 
             // ChartMenuItem
             // 
             this.ChartMenuItem.Name = "ChartMenuItem";
-            this.ChartMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.ChartMenuItem.Size = new System.Drawing.Size(121, 22);
             this.ChartMenuItem.Text = "График";
             this.ChartMenuItem.Click += new System.EventHandler(this.ChartMenuItem_Click);
             // 
@@ -145,12 +145,14 @@
             this.HelpMenuItem.Name = "HelpMenuItem";
             this.HelpMenuItem.Size = new System.Drawing.Size(68, 20);
             this.HelpMenuItem.Text = "Помощь";
+            this.HelpMenuItem.Click += new System.EventHandler(this.HelpMenuItem_Click);
             // 
             // AboutMenuItem
             // 
             this.AboutMenuItem.Name = "AboutMenuItem";
             this.AboutMenuItem.Size = new System.Drawing.Size(94, 20);
             this.AboutMenuItem.Text = "О программе";
+            this.AboutMenuItem.Click += new System.EventHandler(this.AboutMenuItem_Click);
             // 
             // InputDataLabel
             // 

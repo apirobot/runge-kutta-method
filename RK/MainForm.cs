@@ -487,5 +487,23 @@ namespace RK
                 MessageBox.Show("Ошибка при чтении данных", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        /// <summary>
+        /// Показывает помощь.
+        /// </summary>
+        private void HelpMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Для открытия сохранённых ранеее значений:\nФайл→Открыть\nДля записи полученных значений в файл:\nФайл→Сохранить как", 
+                "Помощь", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        /// <summary>
+        /// Показывает информацию о проекте.
+        /// </summary>
+        private void AboutMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Курсовая работа:\nВыполнил: ст.гр АСОИ-152\nОреховский Д.С.\nКонсультант ст.преподаватель кафедры АСУ:\nВайнилович Ю.В.", 
+                "О программе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }
