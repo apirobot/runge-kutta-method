@@ -16,6 +16,7 @@ namespace RK
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new HeadForm());
             Application.Run(new MainForm());
         }
     }

@@ -425,6 +425,7 @@
             this.MainMenuStrip = this.MenuTool;
             this.MaximizeBox = false;
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ввод исходных данных";
             this.MenuTool.ResumeLayout(false);
             this.MenuTool.PerformLayout();

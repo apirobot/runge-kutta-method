@@ -54,6 +54,12 @@
       <DependentUpon>ChartForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Data.cs" />
+    <Compile Include="HeadForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HeadForm.Designer.cs">
+      <DependentUpon>HeadForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,6 +77,9 @@
     </Compile>
     <EmbeddedResource Include="ChartForm.resx">
       <DependentUpon>ChartForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HeadForm.resx">
+      <DependentUpon>HeadForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -103,6 +112,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\error.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\head.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
